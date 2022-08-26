@@ -22,9 +22,13 @@ version = '1.0.3-SNAPSHOT'
 repositories {
     mavenCentral()
 }
+compileJava {
+    options.release = 17
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+}
 
 application {
-    mainClass = 'io.hexlet.boilerplate.HelloWorld'
+    mainClass = 'hexlet.code.App'
 }
 
 dependencies {
@@ -39,6 +43,10 @@ dependencies {
     )
 
     errorprone 'com.google.errorprone:error_prone_core:2.15.0'
+    implementation 'info.picocli:picocli:4.6.3'
+    annotationProcessor 'info.picocli:picocli-codegen:4.6.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
 }
 
 test {
@@ -55,6 +63,6 @@ jacocoTestReport {
     }
 }
 
-checkstyle {
-    toolVersion '9.2.1'
-}
+//checkstyle {
+//    toolVersion '9.2.1'
+//}
