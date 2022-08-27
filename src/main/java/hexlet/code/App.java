@@ -22,7 +22,7 @@ public class App implements Callable<String> {
 
     @Option(names = {"-f", "--format"}, description = "output format \"stylish\" or \"plain\" or \"json\" "
             + "[default: stylish]")
-    private final String format = "stylish";
+    private  String format = "stylish";
 
     //  Define your business logic in the run or call method of your class. This method is called after parsing
 //  is successfully completed.
