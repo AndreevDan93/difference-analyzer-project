@@ -46,12 +46,12 @@ application {
 }
 
 tasks.named('test') {
-    // Use JUnit Platform for unit tests.
+//     Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }
 compileJava {
     options.release = 17
-//    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
+    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
 }
 test {
     jacoco {
@@ -72,10 +72,9 @@ test {
 }
 
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
     reports {
-        xml.required = true
-//        csv.required = true
-//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
