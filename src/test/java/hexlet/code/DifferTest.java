@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
+    
     @Test
     void generate() throws Exception {
         String path1 = "file1.json";
