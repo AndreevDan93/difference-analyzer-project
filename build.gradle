@@ -22,9 +22,9 @@ repositories {
 }
 
 dependencies {
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
     testImplementation(
-            'org.junit.jupiter:junit-jupiter-params:5.9.0',
+            'org.junit.jupiter:junit-jupiter-params:5.8.2',
             'org.slf4j:slf4j-log4j12:2.0.0-alpha6',
             'org.assertj:assertj-core:3.23.1'
     )
@@ -33,7 +33,9 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
-
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+//    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+//    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.11.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.3'
 }
@@ -61,7 +63,7 @@ test {
         excludes = []
         excludeClassLoaders = []
         includeNoLocationClasses = false
-        sessionId = "2afe41d956987ac1b71ec12de93ac3625b77a7bd48c5093fba7258301a43c9df"
+        sessionId = "db5cdb8223e5c365b028"
         dumpOnExit = true
         classDumpDir = null
         output = JacocoTaskExtension.Output.FILE
@@ -74,7 +76,7 @@ jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
     reports {
         xml.required = true
-        csv.required = true
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+//        csv.required = true
+//        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
     }
 }
