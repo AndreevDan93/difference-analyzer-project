@@ -1,18 +1,33 @@
-# запуск программы из jar
-run-dist:
-	./build/install/app/bin/app file1.yml file2.yml
-run-h:
-	./build/install/java-project-lvl2/bin/java-project-lvl2 -h
-# очистка и сборка build
-build:
+.DEFAULT_GOAL := build-run
+
+clean:
 	./gradlew clean
-	./gradlew installDist
-#	./gradlew test
-#	gradle check
-check:
-	gradle checkstyleMain
-	gradle checkstyleTest
+
+build:
+	./gradlew clean build
+
+install:
+	./gradlew clean install
+
+run-dist:
+	./build/install/java-package/bin/java-package
+
+run:
+	./gradlew run
+
 test:
 	./gradlew test
-# игнорирование папки Build. Без этого команда не работает
+
+report:
+	./gradlew jacocoTestReport
+
+lint:
+	./gradlew checkstyleMain checkstyleTest
+
+update-deps:
+	./gradlew useLatestVersions
+
+
+build-run: build run
+
 .PHONY: build
