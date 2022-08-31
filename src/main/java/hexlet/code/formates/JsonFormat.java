@@ -12,6 +12,7 @@ public class JsonFormat {
 
     public static Map<String, Object> fileToMap(Path path) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(readString(path), new TypeReference<>() { });
+        return mapper.readValue(readString(path), new TypeReference<>() {
+        });
     }
 }

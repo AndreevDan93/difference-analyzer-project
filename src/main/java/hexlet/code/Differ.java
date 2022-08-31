@@ -1,7 +1,5 @@
 package hexlet.code;
 
-import hexlet.code.formates.JsonFormat;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -33,9 +31,7 @@ public class Differ {
                         builder.append("  - ").append(key).append(": ").append(map1.get(key)).append("\n");
                         builder.append("  + ").append(key).append(": ").append(map2.get(key)).append("\n");
                     }
-                }
-
-                else if (map1.get(key).equals(map2.get(key))) {
+                } else if (map1.get(key).equals(map2.get(key))) {
                     builder.append("    ").append(key).append(": ").append(map1.get(key)).append("\n");
                 } else {
                     builder.append("  - ").append(key).append(": ").append(map1.get(key)).append("\n");

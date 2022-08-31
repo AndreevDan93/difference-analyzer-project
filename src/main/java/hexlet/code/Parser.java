@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.Map;
 
 public class Parser {
-    public static Map<String,Object> fileToMap(String path) throws Exception {
+    public static Map<String, Object> fileToMap(String path) throws Exception {
         if (path.endsWith("json")) {
             Map<String, Object> map = JsonFormat.fileToMap(getAbsolutePathToFile(path));
             return map;
