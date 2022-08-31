@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
     @Test
-    void generate() throws Exception {
+    void generateJsonFileInput() throws Exception {
         String path1 = "file1.json";
         String path2 = "file2.json";
         String result = """
@@ -35,7 +35,23 @@ class DifferTest {
                   - setting3: true
                   + setting3: none
                 }""";
-        assertEquals(Differ.generate(path1, path2, "format"), result);
+        assertEquals(result, Differ.generate(path1, path2, "format"));
+    }
+
+    @Test
+    void generateYmlFileInput() throws Exception {
+        String path1 = "file3.yml";
+        String path2 = "file4.yml";
+        String result = """
+                {
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
+                }""";
+        assertEquals(result, Differ.generate(path1, path2, "format"));
     }
 
 }
