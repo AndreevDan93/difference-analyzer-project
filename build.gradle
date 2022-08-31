@@ -94,3 +94,8 @@ jacocoTestCoverageVerification {
         }
     }
 }
+
+tasks.register('applicationCodeCoverageReport', JacocoReport) {
+    executionData run
+    sourceSets sourceSets.main
+}
