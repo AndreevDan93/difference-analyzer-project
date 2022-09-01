@@ -35,7 +35,7 @@ class DifferTest {
                   - setting3: true
                   + setting3: none
                 }""";
-        assertEquals(result, Differ.generate(path1, path2, "json"));
+        assertEquals(result, Differ.generate(path1, path2, "stylish"));
     }
 
     @Test
@@ -51,7 +51,7 @@ class DifferTest {
                   + timeout: 20
                   + verbose: true
                 }""";
-        assertEquals(result, Differ.generate(path1, path2, "json"));
+        assertEquals(result, Differ.generate(path1, path2, "stylish"));
     }
 
     @Test

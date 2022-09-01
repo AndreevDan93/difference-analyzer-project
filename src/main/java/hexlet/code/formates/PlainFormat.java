@@ -1,16 +1,13 @@
 package hexlet.code.formates;
 
+import hexlet.code.Parser;
+
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class PlainFormat {
     public static String generatePlainOutputFormat(Map<String, Object> map1, Map<String, Object> map2) {
-        Set<String> keysSet = new TreeSet<>();
-
-        keysSet.addAll(map1.keySet());
-        keysSet.addAll(map2.keySet());
-
+        Set<String> keysSet = Parser.getKeySetFromTwoMaps(map1, map2);
 
         StringBuilder builder = new StringBuilder();
 
@@ -27,16 +24,7 @@ public class PlainFormat {
                         .append(getMapValue(map2, key))
                         .append("\n");
             } else if (map1.containsKey(key) && map2.containsKey(key)) {
-                if (map1.get(key) == null || map2.get(key) == null) {
-                    if (!(map1.get(key) == null && map2.get(key) == null)) {
-                        builder.append("Property '")
-                                .append(key)
-                                .append("' was updated. From ")
-                                .append(getMapValue(map1, key)).append(" to ")
-                                .append(getMapValue(map2, key))
-                                .append("\n");
-                    }
-                } else if (!map1.get(key).equals(map2.get(key))) {
+                if (!Parser.compareValues(map1.get(key), map2.get(key))) {
                     builder.append("Property '")
                             .append(key)
                             .append("' was updated. From ")

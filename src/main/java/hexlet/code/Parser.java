@@ -6,16 +6,16 @@ import hexlet.code.formates.YmlFormat;
 import java.io.File;
 import java.nio.file.Path;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Parser {
     public static Map<String, Object> fileToMap(String path) throws Exception {
         if (path.endsWith("json")) {
-            Map<String, Object> map = JsonFormat.fileToMap(getAbsolutePathToFile(path));
-            return map;
+            return JsonFormat.fileToMap(getAbsolutePathToFile(path));
         }
         if (path.endsWith("yml")) {
-            Map<String, Object> map = YmlFormat.fileToMap(getAbsolutePathToFile(path));
-            return map;
+            return YmlFormat.fileToMap(getAbsolutePathToFile(path));
         }
         throw new RuntimeException("this file type is not supported");
     }
@@ -34,5 +34,21 @@ public class Parser {
         } else {
             throw new RuntimeException("file " + inputPathString + " is not found");
         }
+    }
+
+    public static boolean compareValues(Object ob1, Object ob2) {
+        if (ob1 == null || ob2 == null) {
+            return ob1 == null && ob2 == null;
+        } else {
+            return ob1.equals(ob2);
+        }
+    }
+
+    public static Set<String> getKeySetFromTwoMaps(Map<String, Object> map1, Map<String, Object> map2) {
+        Set<String> keysSet = new TreeSet<>();
+
+        keysSet.addAll(map1.keySet());
+        keysSet.addAll(map2.keySet());
+        return keysSet;
     }
 }

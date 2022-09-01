@@ -2,6 +2,7 @@ package hexlet.code;
 
 import hexlet.code.formates.JsonFormat;
 import hexlet.code.formates.PlainFormat;
+import hexlet.code.formates.StylishFormat;
 
 import java.util.Map;
 
@@ -13,7 +14,8 @@ public class Differ {
         return switch (format) {
             case "json" -> JsonFormat.generateJsonOutputFormat(map1, map2);
             case "plain" -> PlainFormat.generatePlainOutputFormat(map1, map2);
-            default -> throw new RuntimeException("this format is not supported");
+            case "stylish" -> StylishFormat.generateStylishOutputFormat(map1, map2);
+            default -> throw new RuntimeException(format + "this format is not supported");
         };
     }
 
