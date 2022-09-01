@@ -16,20 +16,34 @@ public class PlainFormat {
 
         for (String key : keysSet) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
-                builder.append("Property '").append(key).append("' was removed").append("\n");
+                builder.append("Property '")
+                        .append(key)
+                        .append("' was removed")
+                        .append("\n");
             } else if (!map1.containsKey(key) && map2.containsKey(key)) {
-                builder.append("Property '").append(key).append("' was added with value: ")
-                        .append(getMapValue(map2, key)).append("\n");
+                builder.append("Property '")
+                        .append(key)
+                        .append("' was added with value: ")
+                        .append(getMapValue(map2, key))
+                        .append("\n");
             } else if (map1.containsKey(key) && map2.containsKey(key)) {
                 if (map1.get(key) == null || map2.get(key) == null) {
                     if (!(map1.get(key) == null && map2.get(key) == null)) {
-                        builder.append("Property '").append(key).append("' was updated. From ")
-                                .append(getMapValue(map1, key)).append(" to ").append(getMapValue(map2, key)).append("\n");
+                        builder.append("Property '")
+                                .append(key)
+                                .append("' was updated. From ")
+                                .append(getMapValue(map1, key)).append(" to ")
+                                .append(getMapValue(map2, key))
+                                .append("\n");
                     }
-
                 } else if (!map1.get(key).equals(map2.get(key))) {
-                    builder.append("Property '").append(key).append("' was updated. From ")
-                            .append(getMapValue(map1, key)).append(" to ").append(getMapValue(map2, key)).append("\n");
+                    builder.append("Property '")
+                            .append(key)
+                            .append("' was updated. From ")
+                            .append(getMapValue(map1, key))
+                            .append(" to ")
+                            .append(getMapValue(map2, key))
+                            .append("\n");
                 }
             }
         }
