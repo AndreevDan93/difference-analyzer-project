@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
     @Test
-    void generateJsonFileInput() throws Exception {
+    void generateJsonFileInputJsonFormatOutput() throws Exception {
         String path1 = "file1.json";
         String path2 = "file2.json";
         String result = """
@@ -35,11 +35,11 @@ class DifferTest {
                   - setting3: true
                   + setting3: none
                 }""";
-        assertEquals(result, Differ.generate(path1, path2, "format"));
+        assertEquals(result, Differ.generate(path1, path2, "json"));
     }
 
     @Test
-    void generateYmlFileInput() throws Exception {
+    void generateYmlFileInputJsonFormatOutput() throws Exception {
         String path1 = "file3.yml";
         String path2 = "file4.yml";
         String result = """
@@ -51,7 +51,29 @@ class DifferTest {
                   + timeout: 20
                   + verbose: true
                 }""";
-        assertEquals(result, Differ.generate(path1, path2, "format"));
+        assertEquals(result, Differ.generate(path1, path2, "json"));
     }
+
+    @Test
+    void generateJsonFileInputPlainFormatOutput() throws Exception {
+        String path1 = "file1.json";
+        String path2 = "file2.json";
+        String result = """
+                Property 'chars2' was updated. From [complex value] to false
+                Property 'checked' was updated. From false to true
+                Property 'default' was updated. From null to [complex value]
+                Property 'id' was updated. From 45 to null
+                Property 'key1' was removed
+                Property 'key2' was added with value: 'value2'
+                Property 'numbers2' was updated. From [complex value] to [complex value]
+                Property 'numbers3' was removed
+                Property 'numbers4' was added with value: [complex value]
+                Property 'obj1' was added with value: [complex value]
+                Property 'setting1' was updated. From 'Some value' to 'Another value'
+                Property 'setting2' was updated. From 200 to 300
+                Property 'setting3' was updated. From true to 'none'""";
+        assertEquals(result, Differ.generate(path1, path2, "plain"));
+    }
+
 
 }
