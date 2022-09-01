@@ -24,7 +24,6 @@ public class JsonFormat {
             throws JsonProcessingException {
         Set<String> keysSet = Parser.getKeySetFromTwoMaps(map1, map2);
         Map<String, Object> jMap = new LinkedHashMap<>();
-
         for (String key : keysSet) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
                 jMap.put("-" + key, map1.get(key));
@@ -37,7 +36,6 @@ public class JsonFormat {
                 jMap.put("+" + key, map1.get(key));
             }
         }
-
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(jMap);
     }
