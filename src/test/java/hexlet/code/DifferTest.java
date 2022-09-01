@@ -1,12 +1,13 @@
 package hexlet.code;
 
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DifferTest {
     @Test
-    void generateJsonFileInputJsonFormatOutput() throws Exception {
+    void generateJsonFileInputStylishFormatOutput() throws Exception {
         String path1 = "file1.json";
         String path2 = "file2.json";
         String result = """
@@ -39,7 +40,7 @@ class DifferTest {
     }
 
     @Test
-    void generateYmlFileInputJsonFormatOutput() throws Exception {
+    void generateYmlFileInputWithoutFormat() throws Exception {
         String path1 = "file3.yml";
         String path2 = "file4.yml";
         String result = """
@@ -51,7 +52,7 @@ class DifferTest {
                   + timeout: 20
                   + verbose: true
                 }""";
-        assertEquals(result, Differ.generate(path1, path2, "stylish"));
+        assertEquals(result, Differ.generate(path1, path2));
     }
 
     @Test
@@ -75,5 +76,17 @@ class DifferTest {
         assertEquals(result, Differ.generate(path1, path2, "plain"));
     }
 
+    @Test
+    void generateJsonFileInputJsonFormatOutput() throws Exception {
+        String path1 = "file1.json";
+        String path2 = "file2.json";
+        String result = "{\"chars1\":[\"a\",\"b\",\"c\"],\"-chars2\":[\"d\",\"e\",\"f\"],\""
+                + "+chars2\":[\"d\",\"e\",\"f\"],\"-checked\":false,\"+checked\":false,\"-default\":null,\""
+                + "+default\":null,\"-id\":45,\"+id\":45,\"-key1\":\"value1\",\"+key2\":null,\"numbers1\":[1,2,3,4],\""
+                + "-numbers2\":[2,3,4,5],\"+numbers2\":[2,3,4,5],\"-numbers3\":[3,4,5],\""
+                + "+numbers4\":null,\"+obj1\":null,\"-setting1\":\"Some value\",\"+setting1\":\"Some value\",\""
+                + "-setting2\":200,\"+setting2\":200,\"-setting3\":true,\"+setting3\":true}";
+        assertEquals(result, Differ.generate(path1, path2, "json"));
+    }
 
 }
