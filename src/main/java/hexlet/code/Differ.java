@@ -7,7 +7,7 @@ import hexlet.code.formates.StylishFormat;
 import java.util.Map;
 
 public class Differ {
-    static String generate(String filePath1, String filePath2, String format) throws Exception {
+    public static String generate(String filePath1, String filePath2, String format) throws Exception {
 
         Map<String, Object> map1 = Parser.fileToMap(filePath1);
         Map<String, Object> map2 = Parser.fileToMap(filePath2);
