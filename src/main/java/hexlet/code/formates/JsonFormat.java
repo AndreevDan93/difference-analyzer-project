@@ -40,5 +40,4 @@ public class JsonFormat {
         return objectMapper.writeValueAsString(jMap);
     }
 
-
 }

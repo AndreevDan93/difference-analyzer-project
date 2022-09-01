@@ -8,9 +8,7 @@ import java.util.Set;
 public class PlainFormat {
     public static String generatePlainOutputFormat(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> keysSet = Parser.getKeySetFromTwoMaps(map1, map2);
-
         StringBuilder builder = new StringBuilder();
-
         for (String key : keysSet) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
                 builder.append("Property '")
@@ -35,7 +33,6 @@ public class PlainFormat {
                 }
             }
         }
-
         return builder.toString().trim();
     }
 
