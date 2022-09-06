@@ -7,9 +7,9 @@ public final class Value {
     private final Status status;
 
 
-    public Value(Object firstOb, Object secondOb) {
-        this.firstOb = firstOb;
-        this.secondOb = secondOb;
+    public Value(Object firstValue, Object secondValue) {
+        this.firstOb = firstValue;
+        this.secondOb = secondValue;
         this.status = identifyStatus();
     }
 
