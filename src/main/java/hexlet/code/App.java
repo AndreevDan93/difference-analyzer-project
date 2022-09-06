@@ -28,15 +28,16 @@ public class App implements Callable<String> {
 //  is successfully completed.
     @Override
     public final String call() throws Exception { // your business logic goes here...
-        System.out.println(generate(filepath1, filepath2, format));
-        return "call is working";
+        try {
+            System.out.println(generate(filepath1, filepath2, format));
+            return "call is working";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "call is not working";
+        }
     }
 
     public static void main(String[] args) {
-        try {
-            System.exit(new CommandLine(new App()).execute(args));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        System.exit(new CommandLine(new App()).execute(args));
     }
 }
