@@ -8,41 +8,34 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public class JsonFormatter {
+public final class JsonFormatter extends Formatter {
+    private final Map<String, Object> jMap = new LinkedHashMap<>();
 
-    public static String format(Map<String, Value> valueMap) throws JsonProcessingException {
-        Map<String, Object> jMap = new LinkedHashMap<>();
-
-        for (Map.Entry<String, Value> entry : valueMap.entrySet()) {
-            switch (entry.getValue().getStatus()) {
-                case STATUS_ADDED -> valueWasAdded(jMap, valueMap, entry.getKey());
-                case STATUS_DELETED -> valueWasDeleted(jMap, valueMap, entry.getKey());
-                case STATUS_CHANGED -> valueWasChanged(jMap, valueMap, entry.getKey());
-                case STATUS_UNCHANGED -> valueWasUnchanged(jMap, valueMap, entry.getKey());
-                default -> {
-                }
-            }
-        }
+    @Override
+    public String format(Map<String, Value> valueMap) throws JsonProcessingException {
+        generateFormat(valueMap);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(jMap);
     }
 
-    private static void valueWasAdded(Map<String, Object> jMap, Map<String, Value> valueMap, String key) {
+    @Override
+    protected void valueWasAdded(Map<String, Value> valueMap, String key) {
         jMap.put("+" + key, valueMap.get(key).getSecondOb());
     }
 
-    private static void valueWasDeleted(Map<String, Object> jMap, Map<String, Value> valueMap, String key) {
+    @Override
+    protected void valueWasDeleted(Map<String, Value> valueMap, String key) {
         jMap.put("-" + key, valueMap.get(key).getFirstOb());
     }
 
-    private static void valueWasChanged(Map<String, Object> jMap, Map<String, Value> valueMap, String key) {
+    @Override
+    protected void valueWasChanged(Map<String, Value> valueMap, String key) {
         jMap.put("-" + key, valueMap.get(key).getFirstOb());
         jMap.put("+" + key, valueMap.get(key).getSecondOb());
     }
 
-    private static void valueWasUnchanged(Map<String, Object> jMap, Map<String, Value> valueMap, String key) {
+    @Override
+    protected void valueWasUnchanged(Map<String, Value> valueMap, String key) {
         jMap.put(key, valueMap.get(key).getFirstOb());
     }
-
-
 }

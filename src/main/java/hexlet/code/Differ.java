@@ -21,7 +21,7 @@ public class Differ {
         Path absolutePath2 = getAbsolutePathToFile(path2);
         Map<String, Object> mapFromFile1 = Parser.fileToMap(absolutePath1);
         Map<String, Object> mapFromFile2 = Parser.fileToMap(absolutePath2);
-        Map<String, Value> mapOfChanges = getMapOfChanges(mapFromFile1, mapFromFile2);
+        Map<String, Value> mapOfChanges = getMapOfValue(mapFromFile1, mapFromFile2);
         return formatting(mapOfChanges, format);
     }
 
@@ -45,7 +45,7 @@ public class Differ {
         return absolutePath;
     }
 
-    private static Map<String, Value> getMapOfChanges(Map<String, Object> map1, Map<String, Object> map2) {
+    private static Map<String, Value> getMapOfValue(Map<String, Object> map1, Map<String, Object> map2) {
         Map<String, Value> mapOfChanges = new LinkedHashMap<>();
         Set<String> keysSet = new TreeSet<>();
         keysSet.addAll(map1.keySet());
@@ -64,12 +64,25 @@ public class Differ {
     }
 
     private static String formatting(Map<String, Value> mapOfChanges, String format) throws Exception {
-        return switch (format) {
-            case "json" -> JsonFormatter.format(mapOfChanges);
-            case "plain" -> PlainFormatter.format(mapOfChanges);
-            case "stylish" -> StylishFormatter.format(mapOfChanges);
+        String result;
+
+        switch (format) {
+            case "json" -> {
+                JsonFormatter formatter = new JsonFormatter();
+                result = formatter.format(mapOfChanges);
+            }
+            case "plain" -> {
+
+                PlainFormatter formatter = new PlainFormatter();
+                result = formatter.format(mapOfChanges);
+            }
+            case "stylish" -> {
+                StylishFormatter formatter = new StylishFormatter();
+                result = formatter.format(mapOfChanges);
+            }
             default -> throw new RuntimeException(format + " this format is not supported");
-        };
+        }
+        return result;
     }
 
 
