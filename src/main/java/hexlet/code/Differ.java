@@ -22,7 +22,7 @@ public class Differ {
         Path absolutePath2 = getAbsolutePathToFile(path2);
         Map<String, Object> mapFromFile1 = Parser.fileToMap(absolutePath1);
         Map<String, Object> mapFromFile2 = Parser.fileToMap(absolutePath2);
-        Map<String, Value> mapOfChanges = getMapOfValue(mapFromFile1, mapFromFile2);
+        Map<String, Value> mapOfChanges = getMapOfChanges(mapFromFile1, mapFromFile2);
         return formatting(mapOfChanges, format);
     }
 
@@ -45,8 +45,9 @@ public class Differ {
         }
         return absolutePath;
     }
-//   need to work the next method...
-    private static Map<String, Value> getMapOfValue(Map<String, Object> map1, Map<String, Object> map2) {
+
+    //   need to work the next method...
+    private static Map<String, Value> getMapOfChanges(Map<String, Object> map1, Map<String, Object> map2) {
         Map<String, Value> mapOfChanges = new LinkedHashMap<>();
         Set<String> keysSet = new TreeSet<>();
         keysSet.addAll(map1.keySet());
@@ -56,22 +57,21 @@ public class Differ {
                 mapOfChanges.put(key, new Value(null, map2.get(key), Status.STATUS_ADDED));
             } else if (!map2.containsKey(key)) {
                 mapOfChanges.put(key, new Value(map1.get(key), null, Status.STATUS_DELETED));
-
-
-            } else if (map1.get(key) == null || map2.get(key) == null) {
-                if (map1.get(key) == null && map2.get(key) == null) {
-                    mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
-                } else {
-                    mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_CHANGED));
-                }
-            } else if (map1.get(key).equals(map2.get(key))) {
+            } else if (compareTo(map1.get(key), map2.get(key))) {
                 mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
             } else {
-                mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
+                mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_CHANGED));
             }
         }
-
         return mapOfChanges;
+    }
+
+    private static boolean compareTo(Object value1, Object value2) {
+        if (value1 == null || value2 == null) {
+            return value1 == null && value2 == null;
+        } else {
+            return value1.equals(value2);
+        }
     }
 
     private static String formatting(Map<String, Value> mapOfChanges, String format) throws Exception {
