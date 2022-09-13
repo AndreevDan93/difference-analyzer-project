@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.JsonFormatter;
 import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
@@ -44,45 +45,43 @@ public class Differ {
         }
         return absolutePath;
     }
-
+//   need to work the next method...
     private static Map<String, Value> getMapOfValue(Map<String, Object> map1, Map<String, Object> map2) {
         Map<String, Value> mapOfChanges = new LinkedHashMap<>();
         Set<String> keysSet = new TreeSet<>();
         keysSet.addAll(map1.keySet());
         keysSet.addAll(map2.keySet());
-        String isNotInitialized = Value.IS_NOT_INITIALIZED;
         for (String key : keysSet) {
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-                mapOfChanges.put(key, new Value(map1.get(key), map2.get(key)));
-            } else if (!map1.containsKey(key)) {
-                mapOfChanges.put(key, new Value(isNotInitialized, map2.get(key)));
+            if (!map1.containsKey(key)) {
+                mapOfChanges.put(key, new Value(null, map2.get(key), Status.STATUS_ADDED));
+            } else if (!map2.containsKey(key)) {
+                mapOfChanges.put(key, new Value(map1.get(key), null, Status.STATUS_DELETED));
+
+
+            } else if (map1.get(key) == null || map2.get(key) == null) {
+                if (map1.get(key) == null && map2.get(key) == null) {
+                    mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
+                } else {
+                    mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_CHANGED));
+                }
+            } else if (map1.get(key).equals(map2.get(key))) {
+                mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
             } else {
-                mapOfChanges.put(key, new Value(map1.get(key), isNotInitialized));
+                mapOfChanges.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
             }
         }
+
         return mapOfChanges;
     }
 
     private static String formatting(Map<String, Value> mapOfChanges, String format) throws Exception {
-        String result;
-
-        switch (format) {
-            case "json" -> {
-                JsonFormatter formatter = new JsonFormatter();
-                result = formatter.format(mapOfChanges);
-            }
-            case "plain" -> {
-
-                PlainFormatter formatter = new PlainFormatter();
-                result = formatter.format(mapOfChanges);
-            }
-            case "stylish" -> {
-                StylishFormatter formatter = new StylishFormatter();
-                result = formatter.format(mapOfChanges);
-            }
+        Formatter formatter = switch (format) {
+            case "json" -> new JsonFormatter();
+            case "plain" -> new PlainFormatter();
+            case "stylish" -> new StylishFormatter();
             default -> throw new RuntimeException(format + " this format is not supported");
-        }
-        return result;
+        };
+        return formatter.format(mapOfChanges);
     }
 
 

@@ -5,11 +5,11 @@ import hexlet.code.Value;
 
 import java.util.Map;
 
-abstract class Formatter {
+public abstract class Formatter {
 
     public abstract String format(Map<String, Value> valueMap) throws JsonProcessingException;
 
-    protected void generateFormat(Map<String, Value> valueMap) {
+    protected final void generateFormat(Map<String, Value> valueMap) {
         for (Map.Entry<String, Value> entry : valueMap.entrySet()) {
             switch (entry.getValue().getStatus()) {
                 case STATUS_ADDED -> valueWasAdded(valueMap, entry.getKey());
