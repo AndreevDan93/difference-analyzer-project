@@ -50,9 +50,7 @@ public final class PlainFormatter extends Formatter {
             return null;
         } else if (value instanceof String) {
             return "'" + value + "'";
-        } else if (value instanceof Integer) {
-            return value.toString();
-        } else if (value.equals(false) || value.equals(true)) {
+        } else if (value instanceof Integer || value instanceof Boolean) {
             return value.toString();
         } else {
             return "[complex value]";
