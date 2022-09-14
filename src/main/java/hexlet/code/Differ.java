@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.util.Map;
 
 public class Differ {
-    static final String LOCAL_PATH_INSIDE_PROJECT = "src/main/resources/";
 
     public static String generate(String path1, String path2, String format) throws Exception {
         Path absolutePath1 = Utils.getAbsolutePathToFile(path1);
