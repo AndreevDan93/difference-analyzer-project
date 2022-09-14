@@ -15,7 +15,7 @@ public class Differ {
         Path absolutePath2 = Utils.getAbsolutePathToFile(path2);
         Map<String, Object> mapFromFile1 = Parser.fileToMap(absolutePath1);
         Map<String, Object> mapFromFile2 = Parser.fileToMap(absolutePath2);
-        Map<String, Value> mapOfChanges = Utils.getMapOfChangesFromTwoMap(mapFromFile1, mapFromFile2);
+        Map<String, Value> mapOfChanges = Utils.expectChangesFromTwoMap(mapFromFile1, mapFromFile2);
         return formatting(mapOfChanges, format);
     }
 

@@ -28,11 +28,11 @@ public class Utils {
         return absolutePath;
     }
 
-    public static Map<String, Value> getMapOfChangesFromTwoMap(Map<String, Object> map1, Map<String, Object> map2) {
-        Map<String, Value> mapOfChanges = new LinkedHashMap<>();
-        Set<String> keysSet = new TreeSet<>();
-        keysSet.addAll(map1.keySet());
+    public static Map<String, Value> expectChangesFromTwoMap(Map<String, Object> map1, Map<String, Object> map2) {
+        Set<String> keysSet = new TreeSet<>(map1.keySet());
         keysSet.addAll(map2.keySet());
+
+        Map<String, Value> mapOfChanges = new LinkedHashMap<>();
         for (String key : keysSet) {
             if (!map1.containsKey(key)) {
                 mapOfChanges.put(key, new Value(null, map2.get(key), Status.STATUS_ADDED));
