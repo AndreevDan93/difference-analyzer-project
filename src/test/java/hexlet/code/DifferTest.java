@@ -3,10 +3,14 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 class DifferTest {
 
@@ -40,6 +44,11 @@ class DifferTest {
         String path2 = "file2.json";
         String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test4.txt")));
         assertEquals(expected, Differ.generate(path1, path2, "json"));
+    }
+    @Test
+    void exceptionsTest() {
+        Throwable thrown = catchThrowable(() -> Differ.generate("json1", "file2")); //проброс исключения в перемен
+        assertThat(thrown).isInstanceOf(IOException.class);
     }
 
 }
