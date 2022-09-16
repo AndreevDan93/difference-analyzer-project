@@ -29,7 +29,7 @@ public class App implements Callable<String> {
         try {
             NotStaticDiffer differ = new NotStaticDiffer(filepath1, filepath2, format);
             System.out.println(differ.generate());
-//            System.out.println(StaticDiffer.generate(filepath1, filepath2, format));
+//            System.out.println(Differ.generate(filepath1, filepath2, format));
             return "call is working";
         } catch (Exception e) {
             System.out.println(e.getMessage());

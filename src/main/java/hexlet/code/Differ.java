@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class StaticDiffer {
+public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
         Parser parser = chooseParser(filepath1, filepath2);
         Formatter formatter = chooseFormatter(format);
