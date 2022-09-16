@@ -12,7 +12,7 @@ import static org.assertj.core.api.ThrowableAssert.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class NotStaticDifferTest {
+class NotStaticStaticDifferTest {
 
     @Test
     void generateJsonFileInputStylishFormatOutput() throws Exception {
