@@ -9,6 +9,7 @@ import hexlet.code.parser.JsonParser;
 import hexlet.code.parser.YmlParser;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -16,23 +17,24 @@ import java.util.TreeSet;
 
 public final class Differ {
     private final Parser parser;
+    private final Path absolutPath1;
+    private final Path absolutPath2;
     private final Formatter formatter;
 
-    private final Map<String, Value> map;
-
     public Differ(String filepath1, String filepath2, String format) throws IOException {
+        this.absolutPath1 = Utils.getAbsolutePath(filepath1);
+        this.absolutPath2 = Utils.getAbsolutePath(filepath2);
         this.parser = chooseParser(filepath1, filepath2);
         this.formatter = chooseFormatter(format);
-        this.map = getDiff(filepath1, filepath2);
     }
 
     public Differ(String filepath1, String filepath2) throws IOException {
         this(filepath1, filepath2, "stylish");
-
     }
 
     public String generate() throws IOException {
-        return this.formatter.format(this.map);
+        Map<String, Value> map = getDiff();
+        return this.formatter.format(map);
     }
 
     private Parser chooseParser(String filePath1, String filePath2) throws IOException {
@@ -57,10 +59,9 @@ public final class Differ {
         };
     }
 
-
-    private Map<String, Value> getDiff(String filePath1, String filePath2) throws IOException {
-        Map<String, Object> map1 = this.parser.parse(filePath1);
-        Map<String, Object> map2 = this.parser.parse(filePath2);
+    private Map<String, Value> getDiff() throws IOException {
+        Map<String, Object> map1 = this.parser.parse(this.absolutPath1);
+        Map<String, Object> map2 = this.parser.parse(this.absolutPath2);
 
         Set<String> keysSet = new TreeSet<>(map1.keySet());
         keysSet.addAll(map2.keySet());
