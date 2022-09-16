@@ -7,8 +7,6 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
-import static hexlet.code.Differ.generate;
-
 @Command(name = "getDiff", mixinStandardHelpOptions = true, version = "getDiff 1.0",
         description = "Compares two configuration files and shows a difference.")
 
@@ -29,7 +27,8 @@ public class App implements Callable<String> {
     @Override
     public final String call() throws Exception { // your business logic goes here...
         try {
-            System.out.println(generate(filepath1, filepath2, format));
+            Differ differ = new Differ(filepath1, filepath2, format);
+            System.out.println(differ.generate());
             return "call is working";
         } catch (Exception e) {
             System.out.println(e.getMessage());
