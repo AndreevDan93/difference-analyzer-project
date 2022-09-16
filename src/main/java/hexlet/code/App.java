@@ -27,9 +27,9 @@ public class App implements Callable<String> {
     @Override
     public final String call() throws Exception { // your business logic goes here...
         try {
-            NotStaticDiffer differ = new NotStaticDiffer(filepath1, filepath2, format);
-            System.out.println(differ.generate());
-//            System.out.println(Differ.generate(filepath1, filepath2, format));
+//            NotStaticDiffer differ = new NotStaticDiffer(filepath1, filepath2, format);
+//            System.out.println(differ.generate());
+            System.out.println(Differ.generate(filepath1, filepath2, format));
             return "call is working";
         } catch (Exception e) {
             System.out.println(e.getMessage());
