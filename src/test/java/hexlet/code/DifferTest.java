@@ -22,7 +22,6 @@ class DifferTest {
         String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test1.txt")));
         assertEquals(expected, differ.generate());
     }
-
     @Test
     void generateYmlFileInputWithoutFormat() throws Exception {
         String path1 = "file1.yml";
@@ -31,7 +30,6 @@ class DifferTest {
         String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test1.txt")));
         assertEquals(expected, differ.generate());
     }
-
     @Test
     void generateJsonFileInputPlainFormatOutput() throws Exception {
         String path1 = "file1.json";
@@ -40,7 +38,6 @@ class DifferTest {
         String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test3.txt")));
         assertEquals(expected, differ.generate());
     }
-
     @Test
     void generateJsonFileInputJsonFormatOutput() throws Exception {
         String path1 = "file1.json";
@@ -49,7 +46,6 @@ class DifferTest {
         String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test4.txt")));
         assertEquals(expected, differ.generate());
     }
-
     @Test
     void exceptionsNoFileTest() {
         Throwable thrown = catchThrowable(() -> {
