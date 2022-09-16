@@ -4,31 +4,40 @@ import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.JsonFormatter;
 import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
-import hexlet.code.parser.JsonParser;
 import hexlet.code.parser.Parser;
+import hexlet.code.parser.JsonParser;
 import hexlet.code.parser.YmlParser;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Differ {
-    public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        Parser parser = chooseParser(filepath1, filepath2);
-        Formatter formatter = chooseFormatter(format);
-        Map<String, Object> map1 = parser.parse(Utils.getAbsolutePath(filepath1));
-        Map<String, Object> map2 = parser.parse(Utils.getAbsolutePath(filepath2));
-        Map<String, Value> diff = getDiff(map1, map2);
-        return formatter.format(diff);
+public final class NotStaticDiffer {
+    private final Parser parser;
+    private final Path absolutPath1;
+    private final Path absolutPath2;
+    private final Formatter formatter;
+
+    public NotStaticDiffer(String filepath1, String filepath2, String format) throws IOException {
+        this.absolutPath1 = Utils.getAbsolutePath(filepath1);
+        this.absolutPath2 = Utils.getAbsolutePath(filepath2);
+        this.parser = chooseParser(filepath1, filepath2);
+        this.formatter = chooseFormatter(format);
     }
 
-    public static String generate(String filepath1, String filepath2) throws IOException {
-        return generate(filepath1, filepath2, "stylish");
+    public NotStaticDiffer(String filepath1, String filepath2) throws IOException {
+        this(filepath1, filepath2, "stylish");
     }
 
-    private static Parser chooseParser(String filePath1, String filePath2) throws IOException {
+    public String generate() throws IOException {
+        Map<String, Value> map = getDiff();
+        return this.formatter.format(map);
+    }
+
+    private Parser chooseParser(String filePath1, String filePath2) throws IOException {
         String extension1 = Utils.getExtension(filePath1);
         String extension2 = Utils.getExtension(filePath2);
         if (!extension1.equals(extension2)) {
@@ -41,7 +50,7 @@ public class Differ {
         };
     }
 
-    private static Formatter chooseFormatter(String format) {
+    private Formatter chooseFormatter(String format) {
         return switch (format) {
             case "json" -> new JsonFormatter();
             case "plain" -> new PlainFormatter();
@@ -50,7 +59,10 @@ public class Differ {
         };
     }
 
-    private static Map<String, Value> getDiff(Map<String, Object> map1, Map<String, Object> map2) {
+    private Map<String, Value> getDiff() throws IOException {
+        Map<String, Object> map1 = this.parser.parse(this.absolutPath1);
+        Map<String, Object> map2 = this.parser.parse(this.absolutPath2);
+
         Set<String> keysSet = new TreeSet<>(map1.keySet());
         keysSet.addAll(map2.keySet());
 
@@ -69,11 +81,12 @@ public class Differ {
         return diff;
     }
 
-    private static boolean compare(Object value1, Object value2) {
+    private boolean compare(Object value1, Object value2) {
         if (value1 == null || value2 == null) {
             return value1 == null && value2 == null;
         } else {
             return value1.equals(value2);
         }
     }
+
 }
