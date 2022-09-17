@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AppTest {
 
     @Test
-    void mainTest() {
+    void mainTest()  {
         App app = new App();
         StringWriter sw = new StringWriter();
         CommandLine cmd = new CommandLine(app);
@@ -18,6 +18,5 @@ class AppTest {
 
         int exitCode = cmd.execute("file1.json", "file2.json");
         assertEquals(0, exitCode);
-
     }
 }

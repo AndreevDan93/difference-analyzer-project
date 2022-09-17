@@ -6,12 +6,15 @@ import java.util.Map;
 
 
 public final class StylishFormatter extends Formatter {
+
     private final StringBuilder builder = new StringBuilder();
 
     @Override
     public String format(Map<String, Value> valueMap) {
+        builder.append("{\n");
         generateFormat(valueMap);
-        return "{\n" + builder + "}";
+        builder.append("}");
+        return builder.toString();
     }
 
     @Override

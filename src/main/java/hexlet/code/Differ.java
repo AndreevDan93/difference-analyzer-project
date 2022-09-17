@@ -17,10 +17,11 @@ import java.util.TreeSet;
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
         Parser parser = chooseParser(filepath1, filepath2);
-        Formatter formatter = chooseFormatter(format);
         Map<String, Object> map1 = parser.parse(Utils.getAbsolutePath(filepath1));
         Map<String, Object> map2 = parser.parse(Utils.getAbsolutePath(filepath2));
         Map<String, Value> diff = getDiff(map1, map2);
+
+        Formatter formatter = chooseFormatter(format);
         return formatter.format(diff);
     }
 

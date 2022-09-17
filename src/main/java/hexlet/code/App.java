@@ -7,10 +7,12 @@ import picocli.CommandLine.Parameters;
 
 import java.util.concurrent.Callable;
 
+
 @Command(name = "getDiff", mixinStandardHelpOptions = true, version = "getDiff 1.0",
         description = "Compares two configuration files and shows a difference.")
 
-public class App implements Callable<String> {
+public class App implements Callable<Integer> {
+    private final  Integer errorCode = 123;
 
     @Parameters(index = "0", description = "path to first file.")
     private String filepath1;
@@ -25,15 +27,13 @@ public class App implements Callable<String> {
     //  Define your business logic in the run or call method of your class. This method is called after parsing
 //  is successfully completed.
     @Override
-    public final String call() throws Exception { // your business logic goes here...
+    public final Integer call() { // your business logic goes here...
         try {
-//            NotStaticDiffer differ = new NotStaticDiffer(filepath1, filepath2, format);
-//            System.out.println(differ.generate());
             System.out.println(Differ.generate(filepath1, filepath2, format));
-            return "call is working";
+            return 0;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "call is not working";
+            return errorCode;
         }
     }
 
