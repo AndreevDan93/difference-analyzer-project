@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.gradle.project;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

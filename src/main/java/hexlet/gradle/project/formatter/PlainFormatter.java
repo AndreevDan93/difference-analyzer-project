@@ -1,4 +1,4 @@
-package hexlet.code.formatter;
+package hexlet.gradle.project.formatter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

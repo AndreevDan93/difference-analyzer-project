@@ -1,4 +1,4 @@
-package hexlet.code.formatter;
+package hexlet.gradle.project.formatter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

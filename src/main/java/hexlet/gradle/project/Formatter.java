@@ -1,10 +1,10 @@
 
-package hexlet.code;
+package hexlet.gradle.project;
 
 
-import hexlet.code.formatter.JsonFormatter;
-import hexlet.code.formatter.PlainFormatter;
-import hexlet.code.formatter.StylishFormatter;
+import hexlet.gradle.project.formatter.JsonFormatter;
+import hexlet.gradle.project.formatter.PlainFormatter;
+import hexlet.gradle.project.formatter.StylishFormatter;
 
 import java.util.List;
 import java.util.Map;

@@ -6,10 +6,10 @@ plugins {
 }
 
 application {
-    mainClass = 'hexlet.code.App'
+    mainClass = 'hexlet.gradle.project.App'
 }
 
-group 'hexlet.code'
+group 'hexlet.gradle.project'
 version '1.0-SNAPSHOT'
 
 compileJava {

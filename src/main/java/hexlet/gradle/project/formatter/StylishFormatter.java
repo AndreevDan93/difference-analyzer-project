@@ -1,4 +1,4 @@
-package hexlet.code.formatter;
+package hexlet.gradle.project.formatter;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package hexlet.code;
+package hexlet.gradle.project;
 
 import java.util.ArrayList;
 import java.util.List;
