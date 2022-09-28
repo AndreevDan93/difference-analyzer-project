@@ -5,7 +5,7 @@ import hexlet.code.Value;
 
 import java.util.Map;
 
-abstract class IFormatter {
+public abstract class IFormatter {
 
     public abstract String format(Map<String, Value> valueMap) throws JsonProcessingException;
 
