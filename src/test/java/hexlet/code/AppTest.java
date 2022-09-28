@@ -1,4 +1,4 @@
-package hexlet.gradle.project;
+package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
