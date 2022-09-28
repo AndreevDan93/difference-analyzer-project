@@ -13,6 +13,7 @@ import java.util.concurrent.Callable;
 
 public class App implements Callable<Integer> {
     private final  Integer errorCode = 123;
+    private final  Integer successCode = 0;
 
     @Parameters(index = "0", description = "path to first file.")
     private String filepath1;
@@ -30,7 +31,7 @@ public class App implements Callable<Integer> {
     public final Integer call() { // your business logic goes here...
         try {
             System.out.println(Differ.generate(filepath1, filepath2, format));
-            return 0;
+            return successCode;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return errorCode;
