@@ -1,9 +1,6 @@
 package hexlet.code;
 
 import hexlet.code.formatter.Formatter;
-import hexlet.code.formatter.JsonFormatter;
-import hexlet.code.formatter.PlainFormatter;
-import hexlet.code.formatter.StylishFormatter;
 import hexlet.code.parser.Parser;
 
 import java.io.IOException;
@@ -23,21 +20,11 @@ public class Differ {
 
         Map<String, Value> diff = DiffBuilder.getDiff(map1, map2);
 
-        Formatter formatter = chooseFormatter(format);
-        return formatter.format(diff);
+        return Formatter.format(diff, format);
     }
 
     public static String generate(String filepath1, String filepath2) throws IOException {
         return generate(filepath1, filepath2, "stylish");
-    }
-
-    private static Formatter chooseFormatter(String format) {
-        return switch (format) {
-            case "json" -> new JsonFormatter();
-            case "plain" -> new PlainFormatter();
-            case "stylish" -> new StylishFormatter();
-            default -> throw new RuntimeException(format + " this format is not supported");
-        };
     }
 
 }

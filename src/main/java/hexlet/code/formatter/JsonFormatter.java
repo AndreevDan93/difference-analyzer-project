@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-public final class JsonFormatter extends Formatter {
+public final class JsonFormatter extends IFormatter {
     private final Map<String, Object> jMap = new LinkedHashMap<>();
 
     @Override

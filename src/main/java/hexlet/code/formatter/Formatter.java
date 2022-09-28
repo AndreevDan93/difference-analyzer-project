@@ -5,30 +5,14 @@ import hexlet.code.Value;
 
 import java.util.Map;
 
-public abstract class Formatter {
-
-    public abstract String format(Map<String, Value> valueMap) throws JsonProcessingException;
-
-    protected final void generateFormat(Map<String, Value> valueMap) {
-        for (Map.Entry<String, Value> entry : valueMap.entrySet()) {
-            switch (entry.getValue().getStatus()) {
-                case STATUS_ADDED -> valueWasAdded(valueMap, entry.getKey());
-                case STATUS_DELETED -> valueWasDeleted(valueMap, entry.getKey());
-                case STATUS_CHANGED -> valueWasChanged(valueMap, entry.getKey());
-                case STATUS_UNCHANGED -> valueWasUnchanged(valueMap, entry.getKey());
-                default -> {
-                }
-            }
-        }
+public class Formatter {
+    public static String format(Map<String, Value> map, String format) throws JsonProcessingException {
+        IFormatter formatter = switch (format) {
+            case "json" -> new JsonFormatter();
+            case "stylish" -> new StylishFormatter();
+            case "plain" -> new PlainFormatter();
+            default -> throw new RuntimeException("format" + format + "is not supported");
+        };
+        return formatter.format(map);
     }
-
-    protected abstract void valueWasAdded(Map<String, Value> valueMap, String key);
-
-    protected abstract void valueWasDeleted(Map<String, Value> valueMap, String key);
-
-    protected abstract void valueWasChanged(Map<String, Value> valueMap, String key);
-
-    protected abstract void valueWasUnchanged(Map<String, Value> valueMap, String key);
-
-
 }
