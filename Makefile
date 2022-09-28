@@ -1,17 +1,33 @@
-run-dist:
-	./build/install/app/bin/app file1.yml file2.yml
-run-h:
-	./build/install/java-project-lvl2/bin/java-project-lvl2 -h
-# очистка и сборка build
+.DEFAULT_GOAL := build-run
+
+clean:
+	make -C app clean
+
 build:
-	./gradlew clean
-	./gradlew installDist
-#	./gradlew test
-#	gradle check
-check:
-	gradle checkstyleMain
-	gradle checkstyleTest
+	make -C app build
+
+install:
+	make -C app install
+
+run-dist:
+	make -C run-dist
+
+run:
+	make -C app run
+
 test:
-	./gradlew test
-# игнорирование папки Build. Без этого команда не работает
+	make -C app test
+
+report:
+	make -C app report
+
+lint:
+	make -C app lint
+
+update-deps:
+	make -C app update-deps
+
+
+build-run: build run
+
 .PHONY: build
