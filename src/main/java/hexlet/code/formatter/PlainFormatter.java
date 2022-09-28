@@ -1,59 +1,42 @@
 package hexlet.code.formatter;
 
-import hexlet.code.Value;
-
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-public final class PlainFormatter extends IFormatter {
-    private final StringBuilder builder = new StringBuilder();
+public final class PlainFormatter {
+    public static String format(List<Map<String, List<Object>>> diffList) {
+        StringBuilder result = new StringBuilder();
 
-    @Override
-    public String format(Map<String, Value> valueMap) {
-        generateFormat(valueMap);
-        return builder.toString().trim();
+        for (Map<String, List<Object>> map : diffList) {
+            for (Map.Entry<String, List<Object>> entry : map.entrySet()) {
+                switch (entry.getKey()) {
+                    case "added" -> result.append("Property '").append(entry.getValue().get(0))
+                            .append("' was added with value: ")
+                            .append(printValue(entry.getValue().get(1))).append("\n");
+                    case "removed" -> result.append("Property '").append(entry.getValue().get(0))
+                            .append("' was removed").append("\n");
+                    case "was updated" -> result.append("Property '").append(entry.getValue().get(0))
+                            .append("' was updated. From ")
+                            .append(printValue(entry.getValue().get(2))).append(" to ")
+                            .append(printValue(entry.getValue().get(1))).append("\n");
+                    default -> {
+                    }
+                }
+            }
+        }
+
+        return result.toString().trim();
     }
 
-    @Override
-    protected void valueWasAdded(Map<String, Value> valueMap, String key) {
-        builder.append("Property '")
-                .append(key)
-                .append("' was added with value: ")
-                .append(getPlainValue(valueMap.get(key).getSecondOb()))
-                .append("\n");
-    }
-
-    @Override
-    protected void valueWasDeleted(Map<String, Value> valueMap, String key) {
-        builder.append("Property '")
-                .append(key)
-                .append("' was removed")
-                .append("\n");
-    }
-
-    @Override
-    protected void valueWasChanged(Map<String, Value> valueMap, String key) {
-        builder.append("Property '")
-                .append(key)
-                .append("' was updated. From ")
-                .append(getPlainValue(valueMap.get(key).getFirstOb()))
-                .append(" to ")
-                .append(getPlainValue(valueMap.get(key).getSecondOb()))
-                .append("\n");
-    }
-
-    @Override
-    protected void valueWasUnchanged(Map<String, Value> valueMap, String key) {
-    }
-
-    private static String getPlainValue(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof String) {
-            return "'" + value + "'";
-        } else if (value instanceof Integer || value instanceof Boolean) {
-            return value.toString();
-        } else {
+    public static Object printValue(Object obj) {
+        if (obj == null || obj instanceof Integer || obj instanceof Boolean) {
+            return obj;
+        } else if (obj instanceof ArrayList || obj instanceof LinkedHashMap) {
             return "[complex value]";
+        } else {
+            return "'" + obj + "'";
         }
     }
 }

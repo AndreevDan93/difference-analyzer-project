@@ -1,47 +1,37 @@
 package hexlet.code.formatter;
 
-import hexlet.code.Value;
-
+import java.util.List;
 import java.util.Map;
 
 
-public final class StylishFormatter extends IFormatter {
+public final class StylishFormatter {
+    public static String format(List<Map<String, List<Object>>> diffList) {
+        StringBuilder result = new StringBuilder("{\n");
 
-    private final StringBuilder builder = new StringBuilder();
+        for (Map<String, List<Object>> map : diffList) {
+            for (Map.Entry<String, List<Object>> entry : map.entrySet()) {
+                switch (entry.getKey()) {
+                    case "added" -> result.append("  + ").append(entry.getValue().get(0)).append(": ")
+                            .append(entry.getValue().get(1));
+                    case "removed" -> result.append("  - ").append(entry.getValue().get(0)).append(": ")
+                            .append(entry.getValue().get(1));
+                    case "was updated" -> {
+                        result.append("  - ").append(entry.getValue().get(0)).append(": ")
+                                .append(entry.getValue().get(2)).append("\n");
+                        result.append("  + ").append(entry.getValue().get(0)).append(": ")
+                                .append(entry.getValue().get(1));
+                    }
+                    case "unchanged" -> result.append("    ").append(entry.getValue().get(0)).append(": ")
+                            .append(entry.getValue().get(1));
+                    default -> {
+                    }
+                }
+                result.append("\n");
+            }
+        }
+        result.append("}");
 
-    @Override
-    public String format(Map<String, Value> valueMap) {
-        builder.append("{\n");
-        generateFormat(valueMap);
-        builder.append("}");
-        return builder.toString();
-    }
-
-    @Override
-    protected void valueWasAdded(Map<String, Value> valueMap, String key) {
-        builder.append("  + ").append(key).append(": ")
-                .append(valueMap.get(key).getSecondOb()).append("\n");
-    }
-
-    @Override
-    protected void valueWasDeleted(Map<String, Value> valueMap, String key) {
-        builder.append("  - ").append(key).append(": ")
-                .append(valueMap.get(key).getFirstOb()).append("\n");
-
-    }
-
-    @Override
-    protected void valueWasChanged(Map<String, Value> valueMap, String key) {
-        builder.append("  - ").append(key).append(": ")
-                .append(valueMap.get(key).getFirstOb()).append("\n");
-        builder.append("  + ").append(key).append(": ")
-                .append(valueMap.get(key).getSecondOb()).append("\n");
-    }
-
-    @Override
-    protected void valueWasUnchanged(Map<String, Value> valueMap, String key) {
-        builder.append("    ").append(key).append(": ")
-                .append(valueMap.get(key).getFirstOb()).append("\n");
+        return result.toString();
     }
 
 }

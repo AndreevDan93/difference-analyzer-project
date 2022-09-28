@@ -1,36 +1,42 @@
 package hexlet.code;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class DiffBuilder {
 
-    public static Map<String, Value> getDiff(Map<String, Object> map1, Map<String, Object> map2) {
-        Set<String> keysSet = new TreeSet<>(map1.keySet());
-        keysSet.addAll(map2.keySet());
+    public static List<Map<String, List<Object>>> buildDiff(Map<String, Object> map1, Map<String, Object> map2) {
+        List<Map<String, List<Object>>>  diffTree = new ArrayList<>();
+        Set<String> keySet = new TreeSet<>(map1.keySet());
+        keySet.addAll(map2.keySet());
 
-        Map<String, Value> diff = new LinkedHashMap<>();
-        for (String key : keysSet) {
-            if (!map1.containsKey(key)) {
-                diff.put(key, new Value(null, map2.get(key), Status.STATUS_ADDED));
-            } else if (!map2.containsKey(key)) {
-                diff.put(key, new Value(map1.get(key), null, Status.STATUS_DELETED));
-            } else if (compare(map1.get(key), map2.get(key))) {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
+        for (String key : keySet) {
+            if (!map1.containsKey(key) && map2.containsKey(key)) {
+                diffTree.add(Map.of("added", Arrays.asList(key, map2.get(key))));
+            } else if (map1.containsKey(key) && !map2.containsKey(key)) {
+                diffTree.add(Map.of("removed", Arrays.asList(key, map1.get(key))));
+            } else if ((map1.get(key) == null && map2.get(key) == null)) {
+                diffTree.add(Map.of("unchanged", Arrays.asList(key, map1.get(key))));
+            } else if ((map1.get(key) != null && map2.get(key) != null) && (map1.get(key).equals(map2.get(key)))) {
+                diffTree.add(Map.of("unchanged", Arrays.asList(key, map1.get(key))));
             } else {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_CHANGED));
+                diffTree.add(Map.of("was updated", Arrays.asList(key, map2.get(key), map1.get(key))));
             }
         }
-        return diff;
+
+        return diffTree;
     }
 
-    private static boolean compare(Object value1, Object value2) {
-        if (value1 == null || value2 == null) {
-            return value1 == null && value2 == null;
-        } else {
-            return value1.equals(value2);
-        }
-    }
 }
+//    private static boolean compare(Object value1, Object value2) {
+//        if (value1 == null || value2 == null) {
+//            return value1 == null && value2 == null;
+//        } else {
+//            return value1.equals(value2);
+//        }
+//    }
+
