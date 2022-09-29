@@ -5,7 +5,7 @@ import hexlet.code.Value;
 
 import java.util.Map;
 
-public abstract class Formatter {
+abstract class Formatter {
 
     public abstract String format(Map<String, Value> valueMap) throws JsonProcessingException;
 
@@ -29,6 +29,5 @@ public abstract class Formatter {
     protected abstract void valueWasChanged(Map<String, Value> valueMap, String key);
 
     protected abstract void valueWasUnchanged(Map<String, Value> valueMap, String key);
-
 
 }

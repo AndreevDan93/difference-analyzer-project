@@ -4,7 +4,7 @@ import hexlet.code.Value;
 
 import java.util.Map;
 
-public final class PlainFormatter extends Formatter {
+final class PlainFormatter extends Formatter {
     private final StringBuilder builder = new StringBuilder();
 
     @Override

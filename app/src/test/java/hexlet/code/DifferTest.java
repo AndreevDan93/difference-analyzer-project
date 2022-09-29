@@ -1,6 +1,7 @@
 package hexlet.code;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -13,44 +14,44 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class DifferTest {
+    private String expectedStylish;
+    private String expectedPlain;
+    private String expectedJson;
+    @BeforeEach
+    void testGet() throws IOException {
+        expectedStylish = Utils.getDataFile("src/test/resources/stylishResult.txt");
+        expectedPlain = Utils.getDataFile("src/test/resources/plainResult.txt");
+        expectedJson = Utils.getDataFile("src/test/resources/jsonResult.txt");
+    }
+
 
     @Test
-    void generateJsonFileInputStylishFormatOutput() throws Exception {
+    void jsonInputTest() throws Exception {
         String path1 = "file1.json";
         String path2 = "file2.json";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test1.txt")));
-        assertEquals(expected, Differ.generate(path1, path2, "stylish"));
+        assertEquals(expectedStylish, Differ.generate(path1, path2, "stylish"));
+        assertEquals(expectedStylish, Differ.generate(path1, path2));
+        assertEquals(expectedPlain, Differ.generate(path1, path2, "plain"));
+        assertEquals(expectedJson, Differ.generate(path1, path2, "json"));
     }
 
     @Test
-    void generateYmlFileInputWithoutFormat() throws Exception {
+    void ymlInputTest() throws Exception {
         String path1 = "file1.yml";
         String path2 = "file2.yml";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test1.txt")));
-        assertEquals(expected, Differ.generate(path1, path2));
+        assertEquals(expectedStylish, Differ.generate(path1, path2, "stylish"));
+        assertEquals(expectedStylish, Differ.generate(path1, path2));
+        assertEquals(expectedPlain, Differ.generate(path1, path2, "plain"));
+        assertEquals(expectedJson, Differ.generate(path1, path2, "json"));
     }
 
-    @Test
-    void generateJsonFileInputPlainFormatOutput() throws Exception {
-        String path1 = "file1.json";
-        String path2 = "file2.json";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test3.txt")));
-        assertEquals(expected, Differ.generate(path1, path2, "plain"));
-    }
 
-    @Test
-    void generateJsonFileInputJsonFormatOutput() throws Exception {
-        String path1 = "file1.json";
-        String path2 = "file2.json";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test4.txt")));
-        assertEquals(expected, Differ.generate(path1, path2, "json"));
-    }
 
     @Test
     void generateJsonFileWithAbsolutePath() throws Exception {
         String path1 = Utils.LOCAL_PATH_INSIDE_PROJECT + "file1.json";
         String path2 = Utils.LOCAL_PATH_INSIDE_PROJECT + "file2.json";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/test4.txt")));
+        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonResult.txt")));
         assertEquals(expected, Differ.generate(path1, path2, "json"));
     }
 
@@ -58,12 +59,6 @@ class DifferTest {
     void exceptionsNoFileTest() {
         Throwable thrown = catchThrowable(() -> Differ.generate("json1", "file2"));
         assertThat(thrown).isInstanceOf(IOException.class);
-    }
-
-    @Test
-    void exceptionsDifferentExtensionTest() {
-        Throwable thrown = catchThrowable(() -> Differ.generate("file1.json", "file2.yml"));
-        assertThat(thrown).isInstanceOf(RuntimeException.class);
     }
 
     @Test

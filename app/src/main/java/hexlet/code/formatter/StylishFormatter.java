@@ -5,7 +5,7 @@ import hexlet.code.Value;
 import java.util.Map;
 
 
-public final class StylishFormatter extends Formatter {
+final class StylishFormatter extends Formatter {
 
     private final StringBuilder builder = new StringBuilder();
 
