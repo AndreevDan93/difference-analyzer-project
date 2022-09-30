@@ -24,29 +24,30 @@ final class JsonFormatter extends Formatter {
     @Override
     protected void valueWasAdded(Map<String, Value> valueMap, String key) {
         String value = key + ":" + valueMap.get(key).getSecondOb();
-        diffList.add(Map.of(getKeyDiffList(valueMap, key), value));
+        putValueToList(valueMap, key, value);
     }
 
     @Override
     protected void valueWasDeleted(Map<String, Value> valueMap, String key) {
         String value = key + ":" + valueMap.get(key).getFirstOb();
-        diffList.add(Map.of(getKeyDiffList(valueMap, key), value));
+        putValueToList(valueMap, key, value);
     }
 
     @Override
     protected void valueWasChanged(Map<String, Value> valueMap, String key) {
         String value = key + ":" + valueMap.get(key).getFirstOb() + "," + valueMap.get(key).getSecondOb();
-        diffList.add(Map.of(getKeyDiffList(valueMap, key), value));
+        putValueToList(valueMap, key, value);
     }
 
     @Override
     protected void valueWasUnchanged(Map<String, Value> valueMap, String key) {
         String value = key + ":" + valueMap.get(key).getFirstOb();
-        diffList.add(Map.of(getKeyDiffList(valueMap, key), value));
+        putValueToList(valueMap, key, value);
     }
 
-    private String getKeyDiffList(Map<String, Value> valueMap, String key) {
-        return valueMap.get(key).getStatus().getValue();
+    private void putValueToList(Map<String, Value> valueMap, String key, String value) {
+        String diffKey = valueMap.get(key).getStatus().getValue();
+        diffList.add(Map.of(diffKey, value));
     }
 
 }
