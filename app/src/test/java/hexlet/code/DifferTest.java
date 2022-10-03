@@ -1,7 +1,7 @@
 package hexlet.code;
 
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class DifferTest {
-    private String expectedStylish;
-    private String expectedPlain;
-    private String expectedJson;
-    @BeforeEach
-    void testGet() throws IOException {
+    private static String expectedStylish;
+    private static String expectedPlain;
+    private static String expectedJson;
+    @BeforeAll
+    static void testGet() throws IOException {
         expectedStylish = Utils.getDataFile("src/test/resources/stylishResult.txt");
         expectedPlain = Utils.getDataFile("src/test/resources/plainResult.txt");
-        expectedJson = Utils.getDataFile("src/test/resources/jsonResult.txt");
+        expectedJson = Utils.getDataFile("src/test/resources/jsonResult.json");
     }
 
 
@@ -51,7 +51,7 @@ class DifferTest {
     void generateJsonFileWithAbsolutePath() throws Exception {
         String path1 = Utils.LOCAL_PATH_INSIDE_PROJECT + "file1.json";
         String path2 = Utils.LOCAL_PATH_INSIDE_PROJECT + "file2.json";
-        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonResult.txt")));
+        String expected = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonResult.json")));
         assertEquals(expected, Differ.generate(path1, path2, "json"));
     }
 

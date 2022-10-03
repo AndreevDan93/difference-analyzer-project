@@ -14,13 +14,13 @@ public class DiffBuilder {
         Map<String, Value> diff = new LinkedHashMap<>();
         for (String key : keysSet) {
             if (!map1.containsKey(key)) {
-                diff.put(key, new Value(null, map2.get(key), Status.STATUS_ADDED));
+                diff.put(key, new Value(null, map2.get(key), Status.ADDED));
             } else if (!map2.containsKey(key)) {
-                diff.put(key, new Value(map1.get(key), null, Status.STATUS_DELETED));
+                diff.put(key, new Value(map1.get(key), null, Status.DELETED));
             } else if (compare(map1.get(key), map2.get(key))) {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_UNCHANGED));
+                diff.put(key, new Value(map1.get(key), map2.get(key), Status.UNCHANGED));
             } else {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.STATUS_CHANGED));
+                diff.put(key, new Value(map1.get(key), map2.get(key), Status.CHANGED));
             }
         }
         return diff;

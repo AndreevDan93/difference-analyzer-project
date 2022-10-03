@@ -1,23 +1,23 @@
 package hexlet.code;
 
 public final class Value {
-    private final Object firstOb;
-    private final Object secondOb;
+    private final Object value1;
+    private final Object value2;
     private final Status status;
 
 
     public Value(Object firstValue, Object secondValue, Status statusValue) {
-        this.firstOb = firstValue;
-        this.secondOb = secondValue;
+        this.value1 = firstValue;
+        this.value2 = secondValue;
         this.status = statusValue;
     }
 
-    public Object getFirstOb() {
-        return this.firstOb;
+    public Object getValue1() {
+        return this.value1;
     }
 
-    public Object getSecondOb() {
-        return this.secondOb;
+    public Object getValue2() {
+        return this.value2;
     }
 
     public Status getStatus() {

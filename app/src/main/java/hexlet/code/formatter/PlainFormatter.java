@@ -18,7 +18,7 @@ final class PlainFormatter extends Formatter {
         builder.append("Property '")
                 .append(key)
                 .append("' was added with value: ")
-                .append(getPlainValue(valueMap.get(key).getSecondOb()))
+                .append(getPlainValue(valueMap.get(key).getValue2()))
                 .append("\n");
     }
 
@@ -35,9 +35,9 @@ final class PlainFormatter extends Formatter {
         builder.append("Property '")
                 .append(key)
                 .append("' was updated. From ")
-                .append(getPlainValue(valueMap.get(key).getFirstOb()))
+                .append(getPlainValue(valueMap.get(key).getValue1()))
                 .append(" to ")
-                .append(getPlainValue(valueMap.get(key).getSecondOb()))
+                .append(getPlainValue(valueMap.get(key).getValue2()))
                 .append("\n");
     }
 

@@ -12,7 +12,7 @@ import java.util.concurrent.Callable;
         description = "Compares two configuration files and shows a difference.")
 
 public class App implements Callable<Integer> {
-    private final  Integer errorCode = 123;
+    private final Integer errorCode = 123;
 
     @Parameters(index = "0", description = "path to first file.")
     private String filepath1;

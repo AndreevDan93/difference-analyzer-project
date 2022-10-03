@@ -11,8 +11,10 @@ public final class Parser {
     public static Map<String, Object> parser(String stringFile, String ext) throws JsonProcessingException {
 
         return switch (ext) {
-            case "json" -> new ObjectMapper().readValue(stringFile, new TypeReference<>() { });
-            case "yml" -> new ObjectMapper(new YAMLFactory()).readValue(stringFile, new TypeReference<>() { });
+            case "json" -> new ObjectMapper().readValue(stringFile, new TypeReference<>() {
+            });
+            case "yml" -> new ObjectMapper(new YAMLFactory()).readValue(stringFile, new TypeReference<>() {
+            });
             default -> throw new RuntimeException("incorrect file extension: " + ext);
         };
 

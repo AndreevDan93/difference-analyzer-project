@@ -12,10 +12,10 @@ abstract class Formatter {
     protected final void generateFormat(Map<String, Value> valueMap) {
         for (Map.Entry<String, Value> entry : valueMap.entrySet()) {
             switch (entry.getValue().getStatus()) {
-                case STATUS_ADDED -> valueWasAdded(valueMap, entry.getKey());
-                case STATUS_DELETED -> valueWasDeleted(valueMap, entry.getKey());
-                case STATUS_CHANGED -> valueWasChanged(valueMap, entry.getKey());
-                case STATUS_UNCHANGED -> valueWasUnchanged(valueMap, entry.getKey());
+                case ADDED -> valueWasAdded(valueMap, entry.getKey());
+                case DELETED -> valueWasDeleted(valueMap, entry.getKey());
+                case CHANGED -> valueWasChanged(valueMap, entry.getKey());
+                case UNCHANGED -> valueWasUnchanged(valueMap, entry.getKey());
                 default -> {
                 }
             }
