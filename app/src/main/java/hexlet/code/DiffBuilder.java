@@ -8,10 +8,12 @@ import java.util.TreeSet;
 public class DiffBuilder {
 
     public static Map<String, Value> getDiff(Map<String, Object> map1, Map<String, Object> map2) {
-        Set<String> keysSet = new TreeSet<>(map1.keySet());
-        keysSet.addAll(map2.keySet());
-
+        Set<String> keysSet = new TreeSet<>();
         Map<String, Value> diff = new LinkedHashMap<>();
+
+        keysSet.addAll(map1.keySet());
+        keysSet.addAll(map2.keySet());
+        
         for (String key : keysSet) {
             if (!map1.containsKey(key)) {
                 diff.put(key, new Value(null, map2.get(key), Status.ADDED));
