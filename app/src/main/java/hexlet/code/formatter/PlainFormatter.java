@@ -51,14 +51,11 @@ final class PlainFormatter extends Formatter {
             return "[complex value]";
         } else if (value instanceof String) {
             return String.format("'%s'", value);
+        } else if (value == null) {
+            return null;
         } else {
-            if (value == null) {
-                return null;
-            } else {
-                return value.toString();
-            }
+            return value.toString();
         }
     }
-
 }
 
