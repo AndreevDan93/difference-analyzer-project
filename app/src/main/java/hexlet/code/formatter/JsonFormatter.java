@@ -18,23 +18,21 @@ final class JsonFormatter extends Formatter {
 
     @Override
     protected void valueWasAdded(Map<String, Value> valueMap, String key) {
-        throw new RuntimeException("unsupported method");
     }
 
     @Override
     protected void valueWasDeleted(Map<String, Value> valueMap, String key) {
-        throw new RuntimeException("unsupported method");
     }
 
     @Override
     protected void valueWasChanged(Map<String, Value> valueMap, String key) {
-        throw new RuntimeException("unsupported method");
     }
+
 
     @Override
     protected void valueWasUnchanged(Map<String, Value> valueMap, String key) {
-        throw new RuntimeException("unsupported method");
     }
+
 }
 
 

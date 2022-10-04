@@ -2,6 +2,7 @@ package hexlet.code.formatter;
 
 import hexlet.code.Value;
 
+import java.util.List;
 import java.util.Map;
 
 final class PlainFormatter extends Formatter {
@@ -46,15 +47,18 @@ final class PlainFormatter extends Formatter {
     }
 
     private static String getPlainValue(Object value) {
-        if (value == null) {
-            return null;
-        } else if (value instanceof String) {
-            return "'" + value + "'";
-        } else if (value instanceof Integer || value instanceof Boolean) {
-            return value.toString();
-        } else {
+        if (value instanceof List<?> || value instanceof Map<?, ?>) {
             return "[complex value]";
+        } else if (value instanceof String) {
+            return String.format("'%s'", value);
+        } else {
+            if (value == null) {
+                return null;
+            } else {
+                return value.toString();
+            }
         }
     }
+
 }
 

@@ -7,11 +7,12 @@ import java.util.Map;
 
 import static hexlet.code.Utils.getAbsolutePath;
 import static hexlet.code.Utils.getDataFile;
+import static hexlet.code.Utils.getExtension;
 
 public class Differ {
     public static String generate(String filepath1, String filepath2, String format) throws IOException {
-        String ext1 = Utils.getExtension(filepath1);
-        String ext2 = Utils.getExtension(filepath2);
+        String ext1 = getExtension(filepath1);
+        String ext2 = getExtension(filepath2);
 
         String data1 = getDataFile(getAbsolutePath(filepath1));
         String data2 = getDataFile(getAbsolutePath(filepath2));
