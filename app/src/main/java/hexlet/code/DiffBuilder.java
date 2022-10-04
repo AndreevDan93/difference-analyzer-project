@@ -9,20 +9,24 @@ public class DiffBuilder {
 
     public static Map<String, Value> getDiff(Map<String, Object> map1, Map<String, Object> map2) {
         Set<String> keysSet = new TreeSet<>();
-        Map<String, Value> diff = new LinkedHashMap<>();
 
         keysSet.addAll(map1.keySet());
         keysSet.addAll(map2.keySet());
-        
+
+        Map<String, Value> diff = new LinkedHashMap<>();
         for (String key : keysSet) {
             if (!map1.containsKey(key)) {
-                diff.put(key, new Value(null, map2.get(key), Status.ADDED));
+                Value value = new Value(null, map2.get(key), Status.ADDED);
+                diff.put(key, value);
             } else if (!map2.containsKey(key)) {
-                diff.put(key, new Value(map1.get(key), null, Status.DELETED));
+                Value value = new Value(map1.get(key), null, Status.DELETED);
+                diff.put(key, value);
             } else if (compare(map1.get(key), map2.get(key))) {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.UNCHANGED));
+                Value value = new Value(map1.get(key), map2.get(key), Status.UNCHANGED);
+                diff.put(key, value);
             } else {
-                diff.put(key, new Value(map1.get(key), map2.get(key), Status.CHANGED));
+                Value value = new Value(map1.get(key), map2.get(key), Status.CHANGED);
+                diff.put(key, value);
             }
         }
         return diff;
